@@ -37,22 +37,6 @@ A guided remediation menu turns the most common findings into safe, auditable fi
 
 Every remediation action requires **typed confirmation** of an exact phrase before it runs, and is logged to a local audit file. Before attempting a write action, the tool checks whether your Exchange Online session actually has the required cmdlet (a common RBAC/role gap) and tells you which admin role to check for instead of surfacing a raw PowerShell error.
 
-## Mailbox administration
-
-A separate menu (`[A]`) for proactive admin tasks, not tied to a diagnosed problem:
-
-| Action | What it does |
-|---|---|
-| Check & request PIM roles | Connects to Microsoft Graph, lists your PIM-eligible/active Exchange-related Entra ID roles, and can request self-activation (justification + 1-24h duration) |
-| Configure mail forwarding | Shows current forwarding config and sets or removes it, with a reminder that auto-forwarding is a common exfiltration technique |
-| Shared mailboxes | Convert a regular mailbox to/from Shared, view current Full Access / Send As / Send on Behalf permissions, and grant or revoke each to a delegate |
-
-Same safety pattern as remediation: typed confirmation, RBAC/cmdlet-gap detection, and an audit log entry per action. PIM checks require the `Microsoft.Graph.Authentication`, `Microsoft.Graph.Identity.Governance`, and `Microsoft.Graph.Users` modules:
-
-```powershell
-Install-Module Microsoft.Graph.Authentication, Microsoft.Graph.Identity.Governance, Microsoft.Graph.Users -Scope CurrentUser
-```
-
 ## Requirements
 
 - Windows PowerShell 5.1+ (built into Windows) or PowerShell 7+
